@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Vetmaster" Class="DataClassesDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=IETERMAGOG-PC\SQL2005;Initial Catalog=Vetmaster;Integrated Security=True" SettingsObjectName="WinGrep.Properties.Settings" SettingsPropertyName="VetmasterConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Inventory" Member="Inventories">
+    <Type Name="Inventory">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="CategoryID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="TaxID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UnitID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ScheduleID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Code" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="BarCode" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Grouped" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="ItemPricing" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="ShowItems" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="ShowItemPricing" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="UnitPriceExclusive" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="MarkUp" Type="System.Decimal" DbType="Decimal(18,10) NOT NULL" CanBeNull="false" />
+      <Column Name="SellingPriceExclusive" Type="System.Decimal" DbType="Decimal(18,8) NOT NULL" CanBeNull="false" />
+      <Column Name="SellingTaxAmount" Type="System.Decimal" DbType="Decimal(18,8) NOT NULL" CanBeNull="false" />
+      <Column Name="SellingPriceInclusive" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="TrackLevels" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="ReOrderLevel" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="MaxLevel" Type="System.Decimal" DbType="Decimal(18,4) NOT NULL" CanBeNull="false" />
+      <Column Name="OnHand" Type="System.Decimal" DbType="Decimal(18,4) NOT NULL" CanBeNull="false" />
+      <Column Name="Discontinued" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Comment" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="DosageInterval" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="OrderFactor" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FactorName" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="CreateDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="CreateSaleReminder" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="ReminderMessage" Type="System.String" DbType="VarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="ReminderDays" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ReminderLeadDays" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ApplyLoyalty" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Created" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Modified" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="RowVersion" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="BranchID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CheckBatch" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="Inventory_InventoryCategory" Member="InventoryCategories" ThisKey="CategoryID" OtherKey="ID" Type="InventoryCategory" />
+      <Association Name="SaleDetail_Inventory" Member="SaleDetail" ThisKey="ID" OtherKey="InventoryID" Type="SaleDetail" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.InventoryCategory" Member="InventoryCategories">
+    <Type Name="InventoryCategory">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="IsService" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Created" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Modified" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="RowVersion" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Inventory_InventoryCategory" Member="Inventory" ThisKey="ID" OtherKey="CategoryID" Type="Inventory" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SaleDetail" Member="SaleDetails">
+    <Type Name="SaleDetail">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TypeID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SaleID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="BatchID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SaleDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Quantity" Type="System.Decimal" DbType="Decimal(18,4) NOT NULL" CanBeNull="false" />
+      <Column Name="InventoryID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Unit" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="SellingPriceExclusive" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="TaxPercentage" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="TaxAmount" Type="System.Decimal" DbType="Decimal(18,8) NOT NULL" CanBeNull="false" />
+      <Column Name="SellingPriceInclusive" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="DiscountPercentage" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="Discount" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="Nett" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="Comment" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="PatientID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PatientTreatmentID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Created" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Modified" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="RowVersion" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="MoneyBackInvID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="SaleDetail_Inventory" Member="Inventories" ThisKey="InventoryID" OtherKey="ID" Type="Inventory" />
+    </Type>
+  </Table>
+  <Table Name="dbo.CompanyInfo" Member="CompanyInfos">
+    <Type Name="CompanyInfo">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="RegistrationNumber" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="SiteNo" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="PostalLine1" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="PostalLine2" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="PostalLine3" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="PostalLine4" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="PhysicalLine1" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="PhysicalLine2" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="PhysicalLine3" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="PhysicalLine4" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Telephone" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Fax" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Emergency" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="EMail" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Website" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="VATRegNumber" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="TradingHours" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="PromoMessage" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="QuickSaleMessage" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="InvoiceMessage" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="StatementMessage" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="ReceiptMessage" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="EstimateMessage" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="Logo" Type="System.Data.Linq.Binary" DbType="Image" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="BankingDetails" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="POBillTo" Type="System.String" DbType="VarChar(400)" CanBeNull="true" />
+      <Column Name="PODeliverTo" Type="System.String" DbType="VarChar(400)" CanBeNull="true" />
+      <Column Name="Rounding" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="InventoryPriceRounding" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="BarCodeType" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="AttachmentFolder" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="MailServer" Type="System.String" DbType="VarChar(128)" CanBeNull="true" />
+      <Column Name="MailServerPort" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="MailUsername" Type="System.String" DbType="VarChar(128)" CanBeNull="true" />
+      <Column Name="MailPassword" Type="System.String" DbType="VarChar(128)" CanBeNull="true" />
+      <Column Name="MailEnableSSL" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="SmsUser" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="SmsPassword" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="BackupDirectory" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="Created" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Modified" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="RowVersion" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="BranchID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="AutoAttach" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="UseBatches" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+</Database>

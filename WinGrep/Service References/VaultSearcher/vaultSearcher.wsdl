@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://libralex.co.za/VaultSearcher" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://libralex.co.za/VaultSearcher" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://libralex.co.za/VaultSearcher">
+      <s:element name="Search">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="searchText" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="searchDir" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="recursive" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="ignoreCase" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="returnMany" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="zipFileExt" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SearchResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SearchResult" type="tns:ArrayOfSearchResultInfo" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfSearchResultInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="SearchResultInfo" nillable="true" type="tns:SearchResultInfo" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="SearchResultInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="SearchTerm" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FileName" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="FileSize" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="CreationTime" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="Selected" type="s:boolean" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ArrayOfSearchResultInfo" nillable="true" type="tns:ArrayOfSearchResultInfo" />
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="SearchSoapIn">
+    <wsdl:part name="parameters" element="tns:Search" />
+  </wsdl:message>
+  <wsdl:message name="SearchSoapOut">
+    <wsdl:part name="parameters" element="tns:SearchResponse" />
+  </wsdl:message>
+  <wsdl:message name="SearchHttpGetIn">
+    <wsdl:part name="searchText" type="s:string" />
+    <wsdl:part name="searchDir" type="s:string" />
+    <wsdl:part name="recursive" type="s:string" />
+    <wsdl:part name="ignoreCase" type="s:string" />
+    <wsdl:part name="returnMany" type="s:string" />
+    <wsdl:part name="zipFileExt" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SearchHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfSearchResultInfo" />
+  </wsdl:message>
+  <wsdl:message name="SearchHttpPostIn">
+    <wsdl:part name="searchText" type="s:string" />
+    <wsdl:part name="searchDir" type="s:string" />
+    <wsdl:part name="recursive" type="s:string" />
+    <wsdl:part name="ignoreCase" type="s:string" />
+    <wsdl:part name="returnMany" type="s:string" />
+    <wsdl:part name="zipFileExt" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SearchHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfSearchResultInfo" />
+  </wsdl:message>
+  <wsdl:portType name="VaultSearcherSoap">
+    <wsdl:operation name="Search">
+      <wsdl:input message="tns:SearchSoapIn" />
+      <wsdl:output message="tns:SearchSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="VaultSearcherHttpGet">
+    <wsdl:operation name="Search">
+      <wsdl:input message="tns:SearchHttpGetIn" />
+      <wsdl:output message="tns:SearchHttpGetOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="VaultSearcherHttpPost">
+    <wsdl:operation name="Search">
+      <wsdl:input message="tns:SearchHttpPostIn" />
+      <wsdl:output message="tns:SearchHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="VaultSearcherSoap" type="tns:VaultSearcherSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Search">
+      <soap:operation soapAction="http://libralex.co.za/VaultSearcher/Search" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="VaultSearcherSoap12" type="tns:VaultSearcherSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Search">
+      <soap12:operation soapAction="http://libralex.co.za/VaultSearcher/Search" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="VaultSearcherHttpGet" type="tns:VaultSearcherHttpGet">
+    <http:binding verb="GET" />
+    <wsdl:operation name="Search">
+      <http:operation location="/Search" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="VaultSearcherHttpPost" type="tns:VaultSearcherHttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="Search">
+      <http:operation location="/Search" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="VaultSearcher">
+    <wsdl:port name="VaultSearcherSoap" binding="tns:VaultSearcherSoap">
+      <soap:address location="http://<<ipaddress>>/vaultSearcher/vaultSearcher.asmx" />
+    </wsdl:port>
+    <wsdl:port name="VaultSearcherSoap12" binding="tns:VaultSearcherSoap12">
+      <soap12:address location="http://<<ipaddress>>/vaultSearcher/vaultSearcher.asmx" />
+    </wsdl:port>
+    <wsdl:port name="VaultSearcherHttpGet" binding="tns:VaultSearcherHttpGet">
+      <http:address location="http://<<ipaddress>>/vaultSearcher/vaultSearcher.asmx" />
+    </wsdl:port>
+    <wsdl:port name="VaultSearcherHttpPost" binding="tns:VaultSearcherHttpPost">
+      <http:address location="http://<<ipaddress>>/vaultSearcher/vaultSearcher.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

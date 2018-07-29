@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<discovery xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.xmlsoap.org/disco/">
+  <contractRef ref="http://41.76.209.17/vaultSearcher/vaultSearcher.asmx?wsdl" docRef="http://41.76.209.17/vaultSearcher/vaultSearcher.asmx" xmlns="http://schemas.xmlsoap.org/disco/scl/" />
+  <soap address="http://41.76.209.17/vaultSearcher/vaultSearcher.asmx" xmlns:q1="http://libralex.co.za/VaultSearcher" binding="q1:VaultSearcherSoap" xmlns="http://schemas.xmlsoap.org/disco/soap/" />
+  <soap address="http://41.76.209.17/vaultSearcher/vaultSearcher.asmx" xmlns:q2="http://libralex.co.za/VaultSearcher" binding="q2:VaultSearcherSoap12" xmlns="http://schemas.xmlsoap.org/disco/soap/" />
+</discovery>
